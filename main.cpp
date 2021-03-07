@@ -6,5 +6,7 @@ int main() {
     // arithmetic();
     // linearSolving();
 
+    testThreads();
+
     return 0;
 }
