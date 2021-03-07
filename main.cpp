@@ -1,9 +1,10 @@
-#include <iostream>
-
-using namespace std;
+#include "multiThreading.h"
+#include "testEigen.h"
 
 int main() {
-    cout << "Hello, World!\n";
+    // matrixClass();
+    // arithmetic();
+    // linearSolving();
 
     return 0;
 }
