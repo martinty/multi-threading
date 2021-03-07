@@ -1,3 +1,11 @@
+# General
+.vscode
+Makefile
+Debug
+debug
+Release
+release
+
 # Prerequisites
 *.d
 
