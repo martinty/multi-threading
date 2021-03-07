@@ -12,11 +12,13 @@
 using namespace std;
 
 void worker(const int nT, mutex& mtx) {
-    mtx.lock();
+    mtx.lock();  // Critical section begin
+
     cout << "Thread number: " << nT << "\n";
     cout << "Thread ID: " << this_thread::get_id() << "\n";
     this_thread::sleep_for(chrono::seconds(1));
-    mtx.unlock();
+
+    mtx.unlock();  // Critical section end
 }
 
 void normalSum(int& a) {
