@@ -1,2 +1,3 @@
-# multi-threading
-Multi-threading
+# Multi-threading C++
+
+http://www.cplusplus.com/reference/multithreading/
