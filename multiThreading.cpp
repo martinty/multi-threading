@@ -2,6 +2,7 @@
 
 #include <atomic>
 #include <chrono>
+#include <functional>  // std::ref
 #include <future>
 #include <iostream>
 #include <mutex>
