@@ -27,5 +27,5 @@ class Walltime {
 };
 
 inline std::ostream& operator<<(std::ostream& os, const Walltime& wt) {
-    return os << wt.getDuration() << " [s]";
+    return os << "Walltime: " << wt.getDuration() << " [s]";
 }

@@ -52,6 +52,8 @@ void testThreads() {
         cin >> input;
         switch (input) {
             case 1: {
+                wt.start();
+
                 constexpr int T = 5;
                 mutex mtx;
                 vector<thread> myThreads;
@@ -66,7 +68,8 @@ void testThreads() {
                     t.join();
                 }
 
-                cout << "Thread work done!\n";
+                wt.stop();
+                cout << wt << "\n";
                 break;
             }
             case 2: {
@@ -81,7 +84,7 @@ void testThreads() {
 
                 cout << "a: " << a << "\n";
                 wt.stop();
-                cout << "Walltime: " << wt << "\n";
+                cout << wt << "\n";
 
                 break;
             }
@@ -97,7 +100,7 @@ void testThreads() {
 
                 cout << "a: " << a << "\n";
                 wt.stop();
-                cout << "Walltime: " << wt << "\n";
+                cout << wt << "\n";
 
                 break;
             }
