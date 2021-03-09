@@ -14,6 +14,10 @@
 
 using namespace std;
 
+#ifndef uint
+typedef unsigned int uint;
+#endif
+
 void worker(const int nT, mutex& mtx) {
     mtx.lock();  // Critical section begin
 
