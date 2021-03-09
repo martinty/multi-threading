@@ -13,6 +13,7 @@
 #include <thread>
 #include <vector>
 
+#include "ProgressBar.h"
 #include "Walltime.h"
 
 using namespace std;
@@ -61,6 +62,7 @@ void testThreads() {
         cout << "3) Atomic sum with threads\n";
         cout << "4) Sum the square of every element in vector\n";
         cin >> input;
+        cout << endl;
         switch (input) {
             case 1: {
                 wt.start();
@@ -116,47 +118,58 @@ void testThreads() {
                 break;
             }
             case 4: {
-                vector<int> vec(100'000'000);
-                for (uint i{0}; i < vec.size(); i++) {
-                    vec[i] = (rand() % 21) - 10;  // [-10, 10]
+                const uint N = 100'000'000;
+                ProgressBar bar{N};
+                vector<int> vec(N);
+                cout << "Vector size: " << N << "\n"
+                     << "Generate random numbers [-10, 10] for vector" << endl;
+                for (uint i{0}; i < vec.size(); ++i) {
+                    vec[i] = (rand() % 21) - 10;
+                    ++bar;
                 }
+                cout << endl;
+
+                // **********************
 
                 wt.start();
-
                 constexpr int T = 4;
                 uint skip = vec.size() / T;
                 vector<thread> myThreads;
                 vector<double> result(T);
 
+                cout << "With " << T << " threads\n";
                 for (int t{0}; t < T; t++) {
                     uint begin = skip * t;
                     uint end = (t < T - 1) ? begin + skip : vec.size();
                     myThreads.push_back(thread{sumSquareElement, ref(vec),
                                                begin, end, ref(result[t])});
                 }
-
                 for (auto& t : myThreads) {
                     t.join();
                 }
-
                 double sum1 = accumulate(result.begin(), result.end(), 0.0);
-                cout << "With " << T << " threads\n"
-                     << "Sum: " << sum1 << "\n";
 
+                cout << "Norm: " << std::sqrt(sum1) << "\n";
                 wt.stop();
+                double t1 = wt.getDuration();
                 cout << wt << "\n\n";
 
                 // **********************
 
                 wt.start();
-
                 double sum2 = 0;
-                sumSquareElement(vec, 0, vec.size(), sum2);
-                cout << "With onlye main thread\n"
-                     << "Sum: " << sum2 << "\n";
 
+                cout << "With only main thread\n";
+                sumSquareElement(vec, 0, vec.size(), sum2);
+
+                cout << "Norm: " << std::sqrt(sum2) << "\n";
                 wt.stop();
+                double t2 = wt.getDuration();
                 cout << wt << "\n\n";
+
+                // **********************
+
+                cout << "Speedup with threads: " << t2 / t1 << endl;
 
                 break;
             }
