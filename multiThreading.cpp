@@ -123,7 +123,7 @@ void testThreads() {
 
                 wt.start();
 
-                constexpr int T = 12;
+                constexpr int T = 4;
                 uint skip = vec.size() / T;
                 vector<thread> myThreads;
                 vector<double> result(T);
