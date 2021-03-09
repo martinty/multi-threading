@@ -10,6 +10,8 @@
 #include <thread>
 #include <vector>
 
+#include "Walltime.h"
+
 using namespace std;
 
 void worker(const int nT, mutex& mtx) {
@@ -35,6 +37,7 @@ void atomicSum(atomic_int& a) {
 }
 
 void testThreads() {
+    Walltime wt;
     int input = 1;
     while (input) {
         cout << "\n" << string(40, '-') << "\n";
@@ -63,6 +66,8 @@ void testThreads() {
                 break;
             }
             case 2: {
+                wt.start();
+
                 int a = 0;
                 thread t1{normalSum, ref(a)};
                 thread t2{normalSum, ref(a)};
@@ -71,10 +76,14 @@ void testThreads() {
                 t2.join();
 
                 cout << "a: " << a << "\n";
+                wt.stop();
+                cout << "Walltime: " << wt << "\n";
 
                 break;
             }
             case 3: {
+                wt.start();
+
                 atomic_int a = 0;
                 thread t1{atomicSum, ref(a)};
                 thread t2{atomicSum, ref(a)};
@@ -83,6 +92,8 @@ void testThreads() {
                 t2.join();
 
                 cout << "a: " << a << "\n";
+                wt.stop();
+                cout << "Walltime: " << wt << "\n";
 
                 break;
             }
