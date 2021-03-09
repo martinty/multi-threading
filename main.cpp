@@ -2,9 +2,7 @@
 #include "testEigen.h"
 
 int main() {
-    // matrixClass();
-    // arithmetic();
-    // linearSolving();
+    // showEigenUsage();
 
     testThreads();
 

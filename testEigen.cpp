@@ -8,6 +8,33 @@
 using namespace Eigen;
 using namespace std;
 
+void oving9Task() {
+    cout << "Task 5c from assignment 9 with Eigen\n";
+
+    Matrix2d A, B, C;
+
+    A << 1.0, 2.0,  //
+        3.0, 4.0;   //
+
+    B << 4.0, 3.0,  //
+        2.0, 1.0;   //
+
+    C << 1.0, 3.0,  //
+        1.5, 2.0;   //
+
+    cout << "\nBefore calculation:\n";
+    cout << "Matrix A:\n" << A << "\n";
+    cout << "Matrix B:\n" << B << "\n";
+    cout << "Matrix C:\n" << C << "\n";
+
+    A += B + C;
+
+    cout << "\nAfter A += B + C:\n";
+    cout << "Matrix A:\n" << A << "\n";
+    cout << "Matrix B:\n" << B << "\n";
+    cout << "Matrix C:\n" << C << "\n";
+}
+
 void matrixClass() {
     int input = 1;
     while (input) {
@@ -189,6 +216,39 @@ void linearSolving() {
                 cout << "Here is the matrix A:\n" << A << endl;
                 cout << "The determinant of A is " << A.determinant() << endl;
                 cout << "The inverse of A is:\n" << A.inverse() << endl;
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
+void showEigenUsage() {
+    int input = 1;
+    while (input) {
+        cout << "\n" << string(40, '-') << "\n";
+        cout << "0) Exit\n";
+        cout << "1) oving9Task()\n";
+        cout << "2) matrixClass()\n";
+        cout << "3) arithmetic()\n";
+        cout << "4) linearSolving()\n";
+        cin >> input;
+        switch (input) {
+            case 1: {
+                oving9Task();
+                break;
+            }
+            case 2: {
+                matrixClass();
+                break;
+            }
+            case 3: {
+                arithmetic();
+                break;
+            }
+            case 4: {
+                linearSolving();
                 break;
             }
             default:
