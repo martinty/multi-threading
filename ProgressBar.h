@@ -7,7 +7,7 @@ class ProgressBar {
    private:
     std::string percent =
         "0%   10   20   30   40   50   60   70   80   90   100%";
-    std::string bar = "|----|----|----|----|----|----|----|----|----|----|";
+    std::string axis = "|----|----|----|----|----|----|----|----|----|----|";
     unsigned int range;
     unsigned int stride;
     unsigned int progress;
@@ -22,7 +22,7 @@ class ProgressBar {
     void reset(unsigned int r) { *this = ProgressBar{r}; }
     void operator++() {
         if (progress == 0) {
-            std::cout << percent << "\n" << bar << "\n*" << std::flush;
+            std::cout << percent << "\n" << axis << "\n*" << std::flush;
         } else if (progress % stride == 0) {
             std::cout << '*' << std::flush;
         }
