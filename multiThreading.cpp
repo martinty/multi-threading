@@ -2,10 +2,13 @@
 
 #include <atomic>
 #include <chrono>
+#include <cmath>
 #include <functional>  // std::ref
 #include <future>
 #include <iostream>
 #include <mutex>
+#include <numeric>
+#include <random>
 #include <string>
 #include <thread>
 #include <vector>
@@ -40,6 +43,13 @@ void atomicSum(atomic_int& a) {
     }
 }
 
+void sumSquareElement(const vector<int>& vec, const uint begin, const uint end,
+                      double& sum) {
+    for (uint i{begin}; i < end; i++) {
+        sum += std::pow(vec[i], 2);
+    }
+}
+
 void testThreads() {
     Walltime wt;
     int input = 1;
@@ -49,6 +59,7 @@ void testThreads() {
         cout << "1) Run test threads\n";
         cout << "2) Normal sum with threads\n";
         cout << "3) Atomic sum with threads\n";
+        cout << "4) Sum the square of every element in vector\n";
         cin >> input;
         switch (input) {
             case 1: {
@@ -101,6 +112,51 @@ void testThreads() {
                 cout << "a: " << a << "\n";
                 wt.stop();
                 cout << wt << "\n";
+
+                break;
+            }
+            case 4: {
+                vector<int> vec(100'000'000);
+                for (uint i{0}; i < vec.size(); i++) {
+                    vec[i] = (rand() % 21) - 10;  // [-10, 10]
+                }
+
+                wt.start();
+
+                constexpr int T = 12;
+                uint skip = vec.size() / T;
+                vector<thread> myThreads;
+                vector<double> result(T);
+
+                for (int t{0}; t < T; t++) {
+                    uint begin = skip * t;
+                    uint end = (t < T - 1) ? begin + skip : vec.size();
+                    myThreads.push_back(thread{sumSquareElement, ref(vec),
+                                               begin, end, ref(result[t])});
+                }
+
+                for (auto& t : myThreads) {
+                    t.join();
+                }
+
+                double sum1 = accumulate(result.begin(), result.end(), 0.0);
+                cout << "With " << T << " threads\n"
+                     << "Sum: " << sum1 << "\n";
+
+                wt.stop();
+                cout << wt << "\n\n";
+
+                // **********************
+
+                wt.start();
+
+                double sum2 = 0;
+                sumSquareElement(vec, 0, vec.size(), sum2);
+                cout << "With onlye main thread\n"
+                     << "Sum: " << sum2 << "\n";
+
+                wt.stop();
+                cout << wt << "\n\n";
 
                 break;
             }

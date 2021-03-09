@@ -1,9 +1,14 @@
+#include <stdlib.h>
+
+#include <ctime>
+
 #include "multiThreading.h"
 #include "testEigen.h"
 
 int main() {
-    // showEigenUsage();
+    srand(static_cast<unsigned int>(time(nullptr)));
 
+    // showEigenUsage();
     testThreads();
 
     return 0;
