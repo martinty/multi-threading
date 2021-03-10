@@ -12,8 +12,8 @@ class ProgressBar {
     const size_t range;
     const long double rangeDouble;
     size_t progress = 0;
-    unsigned int symbols = 0;
-    const unsigned int scale = 50;
+    size_t symbols = 0;
+    const size_t scale = 50;
     bool valid = true;
 
     void pre(size_t n) {
@@ -46,7 +46,7 @@ class ProgressBar {
     ProgressBar(int r) : ProgressBar{static_cast<size_t>(r)} {};
     ProgressBar(unsigned int r) : ProgressBar{static_cast<size_t>(r)} {};
     ~ProgressBar() = default;
-    void move(size_t n = 1) {
+    void move(size_t n) {
         pre(n);
         if (valid) {
             progress = n + 1;
