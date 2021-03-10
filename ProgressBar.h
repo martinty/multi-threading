@@ -55,6 +55,5 @@ class ProgressBar {
     }
     void operator++() { move(progress); }
     void operator++(int) { move(progress); }
-
     bool isValid() const { return valid; }
 };
