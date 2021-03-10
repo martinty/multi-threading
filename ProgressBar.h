@@ -5,29 +5,39 @@
 
 class ProgressBar {
    private:
-    std::string percent =
+    const std::string percent =
         "0%   10   20   30   40   50   60   70   80   90   100%";
-    std::string axis = "|----|----|----|----|----|----|----|----|----|----|";
-    unsigned int range;
-    unsigned int stride;
-    unsigned int progress;
+    const std::string axis =
+        "|----|----|----|----|----|----|----|----|----|----|";
+    const size_t range;
+    const long double rangeDouble;
+    size_t progress = 0;
+    unsigned int symbols = 0;
+    const unsigned int scale = 50;
+    bool valid = true;
 
    public:
-    ProgressBar(unsigned int r) : range{r}, stride{r / 50}, progress{0} {
-        if (stride < 1) {
-            stride = 1;
-        }
-    };
+    ProgressBar(size_t r)
+        : range{r}, rangeDouble{static_cast<long double>(r)} {};
+    ProgressBar(int r) : ProgressBar{static_cast<size_t>(r)} {};
+    ProgressBar(unsigned int r) : ProgressBar{static_cast<size_t>(r)} {};
     ~ProgressBar() = default;
-    void reset(unsigned int r) { *this = ProgressBar{r}; }
     void operator++() {
-        if (progress == 0) {
+        if (!valid) {
+            std::cout << "Progress bar is no longer valid" << std::endl;
+            return;
+        } else if (progress == 0) {
             std::cout << percent << "\n" << axis << "\n*" << std::flush;
-        } else if (progress % stride == 0) {
-            std::cout << '*' << std::flush;
         }
-        if (++progress == range) {
-            std::cout << '*' << std::endl;
+        progress++;
+        unsigned int p = (progress / rangeDouble) * scale;
+        if (p > symbols) {
+            std::cout << std::string(p - symbols, '*') << std::flush;
+            symbols = p;
+        }
+        if (progress == range) {
+            std::cout << std::string(scale - symbols, '*') << std::endl;
+            valid = false;
         }
     }
     void operator++(int) { ++(*this); }
