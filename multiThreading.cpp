@@ -118,6 +118,7 @@ void testThreads() {
                 break;
             }
             case 4: {
+                wt.start();
                 const uint N = 100'000'000;
                 ProgressBar bar{N};
                 vector<int> vec(N);
@@ -127,7 +128,8 @@ void testThreads() {
                     vec[i] = (rand() % 21) - 10;
                     ++bar;
                 }
-                cout << endl;
+                wt.stop();
+                cout << wt << "\n\n";
 
                 // **********************
 
