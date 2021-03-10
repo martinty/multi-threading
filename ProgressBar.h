@@ -16,29 +16,45 @@ class ProgressBar {
     const unsigned int scale = 50;
     bool valid = true;
 
+    void pre(size_t n) {
+        if (!valid) {
+            std::cout << "Progress bar is no longer valid!" << std::endl;
+        } else if (n < progress) {
+            std::cout << "Not valid movement!" << std::endl;
+            std::cout << "Progress bar is no longer valid!" << std::endl;
+            valid = false;
+        } else if (progress == 0) {
+            std::cout << percent << "\n" << axis << "\n*" << std::flush;
+        }
+    }
+    void post() {
+        if (progress >= range) {
+            std::cout << std::string(scale - symbols, '*') << std::endl;
+            valid = false;
+        } else {
+            unsigned int p = (progress / rangeDouble) * scale;
+            if (p > symbols) {
+                std::cout << std::string(p - symbols, '*') << std::flush;
+                symbols = p;
+            }
+        }
+    }
+
    public:
     ProgressBar(size_t r)
         : range{r}, rangeDouble{static_cast<long double>(r)} {};
     ProgressBar(int r) : ProgressBar{static_cast<size_t>(r)} {};
     ProgressBar(unsigned int r) : ProgressBar{static_cast<size_t>(r)} {};
     ~ProgressBar() = default;
-    void operator++() {
-        if (!valid) {
-            std::cout << "Progress bar is no longer valid" << std::endl;
-            return;
-        } else if (progress == 0) {
-            std::cout << percent << "\n" << axis << "\n*" << std::flush;
-        }
-        progress++;
-        unsigned int p = (progress / rangeDouble) * scale;
-        if (p > symbols) {
-            std::cout << std::string(p - symbols, '*') << std::flush;
-            symbols = p;
-        }
-        if (progress == range) {
-            std::cout << std::string(scale - symbols, '*') << std::endl;
-            valid = false;
+    void move(size_t n = 1) {
+        pre(n);
+        if (valid) {
+            progress = n + 1;
+            post();
         }
     }
-    void operator++(int) { ++(*this); }
+    void operator++() { move(progress); }
+    void operator++(int) { move(progress); }
+
+    bool isValid() const { return valid; }
 };
