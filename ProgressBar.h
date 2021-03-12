@@ -56,4 +56,6 @@ class ProgressBar {
     void operator++() { move(progress); }
     void operator++(int) { move(progress); }
     bool isValid() const { return valid; }
+    size_t getRange() const { return range; }
+    size_t getProgress() const { return progress; }
 };
