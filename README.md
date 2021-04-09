@@ -23,6 +23,11 @@
 
 ---
 
-`ProgressBar`, `RandomEngine` and `Walltime` classes are taken from
+## Git Tools - Submodules
 
-- https://github.com/martinty/stdmt
+https://git-scm.com/book/en/v2/Git-Tools-Submodules
+
+```sh
+# Update submodule to latest commit
+git submodule update --remote
+```
