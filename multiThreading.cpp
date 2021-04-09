@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "ProgressBar.h"
+#include "RandomEngine.h"
 #include "Walltime.h"
 
 using namespace std;
@@ -122,10 +123,11 @@ void testThreads() {
                 const uint N = 100'000'000;
                 ProgressBar bar{N};
                 vector<int> vec(N);
+                RandomEngine engine;
                 cout << "Vector size: " << N << "\n"
                      << "Generate random numbers [-10, 10] for vector" << endl;
                 for (uint i{0}; i < vec.size(); ++i) {
-                    vec[i] = (rand() % 21) - 10;
+                    vec[i] = engine.getRandInt(-10, 10);
                     ++bar;
                 }
                 wt.stop();
