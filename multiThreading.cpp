@@ -13,11 +13,12 @@
 #include <thread>
 #include <vector>
 
-#include "ProgressBar.h"
-#include "RandomEngine.h"
-#include "Walltime.h"
+#include "stdmt/ProgressBar.h"
+#include "stdmt/RandomEngine.h"
+#include "stdmt/Walltime.h"
 
 using namespace std;
+using namespace stdmt;
 
 #ifndef uint
 typedef unsigned int uint;
