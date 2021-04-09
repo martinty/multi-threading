@@ -1,0 +1,3 @@
+[submodule "stdmt"]
+	path = stdmt
+	url = git@github.com:martinty/stdmt.git
