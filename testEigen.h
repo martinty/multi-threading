@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Eigen/Dense"
+#include "multiThreading.h"
 
 using namespace Eigen;
 using namespace std;
@@ -42,7 +43,7 @@ inline void matrixClass() {
         cout << "0) Exit\n";
         cout << "1) Comma-initialization\n";
         cout << "2) Scalar multiplication and division\n";
-        cin >> input;
+        input = getIntInput(0, 2);
         switch (input) {
             case 1: {
                 MatrixXd m(2, 2);
@@ -81,7 +82,7 @@ inline void arithmetic() {
         cout << "3) Matrix-matrix and matrix-vector multiplication\n";
         cout << "4) Dot product and cross product\n";
         cout << "5) Basic arithmetic reduction operations\n";
-        cin >> input;
+        input = getIntInput(0, 5);
         switch (input) {
             case 1: {
                 Matrix2d a;
@@ -176,7 +177,7 @@ inline void linearSolving() {
         cout << "1) Basic linear solving\n";
         cout << "2) Computing eigenvalues and eigenvectors\n";
         cout << "3) Computing inverse and determinant\n";
-        cin >> input;
+        input = getIntInput(0, 3);
         switch (input) {
             case 1: {
                 Matrix3f A;
@@ -233,7 +234,7 @@ inline void showEigenUsage() {
         cout << "2) matrixClass()\n";
         cout << "3) arithmetic()\n";
         cout << "4) linearSolving()\n";
-        cin >> input;
+        input = getIntInput(0, 4);
         switch (input) {
             case 1: {
                 oving9Task();

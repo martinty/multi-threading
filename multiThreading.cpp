@@ -24,6 +24,24 @@ using namespace stdmt;
 typedef unsigned int uint;
 #endif
 
+int getIntInput(int lower, int upper) {
+    int input;
+    for (;;) {
+        cout << "Input: ";
+        cin >> input;
+        if (cin && input >= lower && input <= upper) break;
+        cin.clear();
+        if (cin.peek() != EOF) {
+            cin.ignore(256, '\n');
+        }
+        cout << "Incorrect input, try again!\n";
+    }
+    if (cin.peek() != EOF) {
+        cin.ignore(256, '\n');
+    }
+    return input;
+}
+
 void worker(const int nT, mutex& mtx) {
     mtx.lock();  // Critical section begin
 
@@ -63,7 +81,7 @@ void testThreads() {
         cout << "2) Normal sum with threads\n";
         cout << "3) Atomic sum with threads\n";
         cout << "4) Sum the square of every element in vector\n";
-        cin >> input;
+        input = getIntInput(0, 4);
         cout << endl;
         switch (input) {
             case 1: {
