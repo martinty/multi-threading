@@ -3,7 +3,7 @@
 
 int main() {
     // showEigenUsage();
-    testThreads();
+    testThreadsMenu();
 
     return 0;
 }
