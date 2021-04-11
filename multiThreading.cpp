@@ -46,6 +46,14 @@ void sumSquareElement(const vector<int>& vec, const uint begin, const uint end,
     }
 }
 
+void threadFunc(int n) {
+    // Threads can split each other lines
+    // cout is thread safe, but other threads can print to terminal in between
+    // "... << ..."
+    // Can be solved with mutex as shown in worker()
+    cout << "Hello from thread: " << n << endl;
+}
+
 void testWorker() {
     Walltime wt;  // Also start timer
 
@@ -156,16 +164,26 @@ void testVectorWork() {
     cout << "Speedup with threads: " << t2 / t1 << endl;
 }
 
+void testThreadFunc() {
+    thread t1{threadFunc, 1};  // Spawn new thread
+    thread t2{threadFunc, 2};
+    // Main thread is free to do work ...
+    t1.join();  // block until t1 is finished
+    t2.join();
+    cout << "Thread 1 and 2 completed\n";
+}
+
 void testThreadsMenu() {
     int input = 1;
     while (input) {
         cout << "\n" << string(40, '-') << "\n";
         cout << "0) Exit\n";
-        cout << "1) Run test threads\n";
+        cout << "1) Run worker threads\n";
         cout << "2) Normal sum with threads\n";
         cout << "3) Atomic sum with threads\n";
         cout << "4) Sum the square of every element in vector\n";
-        input = getInput(0, 4);
+        cout << "5) Run 'Hello from thread'\n";
+        input = getInput(0, 5);
         cout << endl;
         switch (input) {
             case 1: {
@@ -182,6 +200,10 @@ void testThreadsMenu() {
             }
             case 4: {
                 testVectorWork();
+                break;
+            }
+            case 5: {
+                testThreadFunc();
                 break;
             }
             default:

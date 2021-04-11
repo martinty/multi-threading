@@ -13,8 +13,10 @@ void normalSum(int& a);
 void atomicSum(std::atomic_int& a);
 void sumSquareElement(const std::vector<int>& vec, const uint begin,
                       const uint end, double& sum);
+void threadFunc(int n);
 void testWorker();
 void testNormalSum();
 void testAtomicSum();
 void testVectorWork();
+void testThreadFunc();
 void testThreadsMenu();
