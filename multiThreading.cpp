@@ -179,7 +179,7 @@ void testThreadArgs() {
     int a = 1;
     int b = 2;
     int c = 3;
-    std::thread t1(threadArgs, a, &b, std::ref(c));
+    std::thread t1{threadArgs, a, &b, std::ref(c)};
     t1.join();
 }
 
