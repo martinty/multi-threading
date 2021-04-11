@@ -56,6 +56,30 @@ void threadFunc(int n) {
 
 void threadArgs(int a, int* b, int& c) { cout << a + *b + c << endl; }
 
+int a_glob = 0;  // Global variable
+void threadDataRace() {
+    for (int i{0}; i < 1000000; i++) {
+        a_glob++;  // Data race, a = a + 1
+    }
+};
+
+mutex mtx_glob;
+int a_glob_mutex = 0;
+void threadMutex() {
+    mtx_glob.lock();  // Critical section begin
+    for (int i{0}; i < 1000000; i++) {
+        a_glob_mutex++;
+    }
+    mtx_glob.unlock();  // Critical section end
+};
+
+atomic_int a_glob_atomic = 0;
+void threadAtomic() {
+    for (int i{0}; i < 1000000; i++) {
+        a_glob_atomic++;  // Atomic action
+    }
+};
+
 void testWorker() {
     Walltime wt;  // Also start timer
 
@@ -179,8 +203,32 @@ void testThreadArgs() {
     int a = 1;
     int b = 2;
     int c = 3;
-    std::thread t1{threadArgs, a, &b, std::ref(c)};
+    thread t1{threadArgs, a, &b, ref(c)};
     t1.join();
+}
+
+void testThreadDataRace() {
+    thread t1{threadDataRace};
+    thread t2{threadDataRace};
+    t1.join();
+    t2.join();
+    cout << "a_glob: " << a_glob << "\n";
+}
+
+void testThreadMutex() {
+    thread t1{threadMutex};
+    thread t2{threadMutex};
+    t1.join();
+    t2.join();
+    cout << "a_glob_mutex: " << a_glob_mutex << "\n";
+}
+
+void testThreadAtomic() {
+    thread t1{threadAtomic};
+    thread t2{threadAtomic};
+    t1.join();
+    t2.join();
+    cout << "a_glob_atomic: " << a_glob_atomic << "\n";
 }
 
 void testThreadsMenu() {
@@ -194,7 +242,10 @@ void testThreadsMenu() {
         cout << "4) Sum the square of every element in vector\n";
         cout << "5) Run 'Hello from thread'\n";
         cout << "6) Run thread with args\n";
-        input = getInput(0, 6);
+        cout << "7) Run thread with global variable\n";
+        cout << "8) Run thread with mutex\n";
+        cout << "9) Run thread with atomic_int\n";
+        input = getInput(0, 9);
         cout << endl;
         switch (input) {
             case 1: {
@@ -219,6 +270,18 @@ void testThreadsMenu() {
             }
             case 6: {
                 testThreadArgs();
+                break;
+            }
+            case 7: {
+                testThreadDataRace();
+                break;
+            }
+            case 8: {
+                testThreadMutex();
+                break;
+            }
+            case 9: {
+                testThreadAtomic();
                 break;
             }
             default:

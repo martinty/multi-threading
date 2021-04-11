@@ -15,6 +15,9 @@ void sumSquareElement(const std::vector<int>& vec, const uint begin,
                       const uint end, double& sum);
 void threadFunc(int n);
 void threadArgs(int a, int* b, int& c);
+void threadDataRace();
+void threadMutex();
+void threadAtomic();
 
 void testWorker();
 void testNormalSum();
@@ -22,5 +25,8 @@ void testAtomicSum();
 void testVectorWork();
 void testThreadFunc();
 void testThreadArgs();
+void testThreadDataRace();
+void testThreadMutex();
+void testThreadAtomic();
 
 void testThreadsMenu();
