@@ -54,6 +54,8 @@ void threadFunc(int n) {
     cout << "Hello from thread: " << n << endl;
 }
 
+void threadArgs(int a, int* b, int& c) { cout << a + *b + c << endl; }
+
 void testWorker() {
     Walltime wt;  // Also start timer
 
@@ -173,6 +175,14 @@ void testThreadFunc() {
     cout << "Thread 1 and 2 completed\n";
 }
 
+void testThreadArgs() {
+    int a = 1;
+    int b = 2;
+    int c = 3;
+    std::thread t1(threadArgs, a, &b, std::ref(c));
+    t1.join();
+}
+
 void testThreadsMenu() {
     int input = 1;
     while (input) {
@@ -183,7 +193,8 @@ void testThreadsMenu() {
         cout << "3) Atomic sum with threads\n";
         cout << "4) Sum the square of every element in vector\n";
         cout << "5) Run 'Hello from thread'\n";
-        input = getInput(0, 5);
+        cout << "6) Run thread with args\n";
+        input = getInput(0, 6);
         cout << endl;
         switch (input) {
             case 1: {
@@ -204,6 +215,10 @@ void testThreadsMenu() {
             }
             case 5: {
                 testThreadFunc();
+                break;
+            }
+            case 6: {
+                testThreadArgs();
                 break;
             }
             default:
