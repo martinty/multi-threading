@@ -2,6 +2,10 @@
 
 > C++ Standard Library (std)
 
+Simple examples to demonstrate usage of threads and third party libraries as Eigen. 
+
+If you download `multi_threading` with "Download ZIP" the `stdmt` folder will be empty. Then you also need to download [stdmt](https://github.com/martinty/stdmt/tree/640c29629e60f8549785b9cabed7cc9d6f274cbd) with "Download ZIP" and place it in the folder.
+
 ### [cplusplus](http://www.cplusplus.com/)
 
 - Multi-threading: http://www.cplusplus.com/reference/multithreading/
@@ -26,6 +30,13 @@
 ## Git Tools - Submodules
 
 https://git-scm.com/book/en/v2/Git-Tools-Submodules
+
+```sh
+# Cloning a Project with Submodules
+git clone https://github.com/martinty/multi-threading.git
+git submodule init
+git submodule update
+```
 
 ```sh
 # Update submodule to latest commit
