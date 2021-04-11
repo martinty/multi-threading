@@ -22,14 +22,10 @@ int getIntInput(int lower, int upper) {
         cin >> input;
         if (cin && input >= lower && input <= upper) break;
         cin.clear();
-        if (cin.peek() != EOF) {
-            cin.ignore(256, '\n');
-        }
+        cin.ignore(256, '\n');
         cout << "Incorrect input, try again!\n";
     }
-    if (cin.peek() != EOF) {
-        cin.ignore(256, '\n');
-    }
+    cin.ignore(256, '\n');
     return input;
 }
 
