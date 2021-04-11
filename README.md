@@ -4,7 +4,7 @@
 
 Simple examples to demonstrate usage of threads and third party libraries as Eigen. 
 
-If you download `multi-threading` with "Download ZIP" the `stdmt` folder will be empty. Then you also need to download [stdmt](https://github.com/martinty/stdmt/tree/640c29629e60f8549785b9cabed7cc9d6f274cbd) with "Download ZIP" and place it in the folder.
+If you download `multi-threading` with "Download ZIP", the `stdmt` folder will be empty. Then you also need to download [stdmt](https://github.com/martinty/stdmt/tree/640c29629e60f8549785b9cabed7cc9d6f274cbd) with "Download ZIP" and place it in the folder.
 
 ### [cplusplus](http://www.cplusplus.com/)
 
