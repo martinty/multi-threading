@@ -84,7 +84,7 @@ void example4() {
 #include <mutex>
 int a_glob_mutex = 0;
 mutex mtx_glob;
-void numNormalMutex() {
+void sumNormalMutex() {
     for (int i = 0; i < 100'000; i++) {
         mtx_glob.lock();
         a_glob_mutex++;
@@ -93,8 +93,8 @@ void numNormalMutex() {
 }
 
 void example5() {
-    thread t1{numNormalMutex};
-    thread t2{numNormalMutex};
+    thread t1{sumNormalMutex};
+    thread t2{sumNormalMutex};
 
     t1.join();
     t2.join();
@@ -105,7 +105,7 @@ void example5() {
 #include <atomic>
 atomic_int a_glob_atomic = 0;
 
-void numNormalAtomic() {
+void sumNormalAtomic() {
     for (int i = 0; i < 100'000; i++) {
         // "En handling!"
         a_glob_atomic++;
@@ -113,8 +113,8 @@ void numNormalAtomic() {
 }
 
 void example6() {
-    thread t1{numNormalAtomic};
-    thread t2{numNormalAtomic};
+    thread t1{sumNormalAtomic};
+    thread t2{sumNormalAtomic};
 
     t1.join();
     t2.join();
