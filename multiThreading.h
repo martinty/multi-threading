@@ -8,6 +8,8 @@
 typedef unsigned int uint;
 #endif
 
+namespace test {
+
 void worker(const int nT, std::mutex& mtx);
 void normalSum(int& a);
 void atomicSum(std::atomic_int& a);
@@ -30,3 +32,5 @@ void testThreadMutex();
 void testThreadAtomic();
 
 void testThreadsMenu();
+
+}  // namespace test

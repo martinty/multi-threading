@@ -17,6 +17,8 @@
 using namespace std;
 using namespace stdmt;
 
+namespace test {
+
 void worker(const int nT, mutex& mtx) {
     mtx.lock();  // Critical section begin
 
@@ -289,3 +291,5 @@ void testThreadsMenu() {
         }
     }
 }
+
+}  // namespace test

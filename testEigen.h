@@ -10,6 +10,8 @@ using namespace Eigen;
 using namespace std;
 using namespace stdmt;
 
+namespace test {
+
 inline void oving9Task() {
     cout << "Task 5c from assignment 9 with Eigen\n";
 
@@ -258,3 +260,5 @@ inline void showEigenUsage() {
         }
     }
 }
+
+}  // namespace test

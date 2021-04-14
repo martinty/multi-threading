@@ -3,9 +3,11 @@
 // #include "testEigen.h"
 
 int main() {
-    // showEigenUsage();
+    // Show examles with Eigen
+    // test::showEigenUsage();
 
-    testThreadsMenu();
+    // Show examples with threads
+    // test::testThreadsMenu();
 
     runLiveCode();
 
