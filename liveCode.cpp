@@ -138,8 +138,8 @@ void sumWithOutGlobVar(int& a, int& b, atomic_int& c, mutex& mtx) {
 }
 
 void example_4_5_6_extra() {
-    // Mye bedre å ikke bruke globalene variabler
-    // Da har man full kontroll over hva som har tilgang
+    // Mye bedre å ikke bruke globale variabler
+    // Da har man full kontroll over hvem som har tilgang
     int a = 0;
     int b = 0;
     atomic_int c = 0;
