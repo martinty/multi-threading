@@ -83,12 +83,12 @@ void example4() {
 
 #include <mutex>
 int a_glob_mutex = 0;
-mutex mtx;
+mutex mtx_glob;
 void numNormalMutex() {
     for (int i = 0; i < 100'000; i++) {
-        mtx.lock();
+        mtx_glob.lock();
         a_glob_mutex++;
-        mtx.unlock();
+        mtx_glob.unlock();
     }
 }
 
