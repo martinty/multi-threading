@@ -11,7 +11,7 @@ void threadFunc(int t) {
     cout << "Hello from thread: " << t << endl;
 }
 
-void exmaple1() {
+void example1() {
     thread t1{threadFunc, 1};
     thread t2{threadFunc, 2};
 
@@ -71,7 +71,7 @@ void sumNormal() {
     }
 }
 
-void exmaple4() {
+void example4() {
     thread t1{sumNormal};
     thread t2{sumNormal};
 
@@ -92,7 +92,7 @@ void numNormalMutex() {
     }
 }
 
-void exmaple5() {
+void example5() {
     thread t1{numNormalMutex};
     thread t2{numNormalMutex};
 
@@ -112,7 +112,7 @@ void numNormalAtomic() {
     }
 }
 
-void exmaple6() {
+void example6() {
     thread t1{numNormalAtomic};
     thread t2{numNormalAtomic};
 
@@ -142,11 +142,11 @@ void example7() {
 
 void runLiveCode() {
     // Write live code
-    // exmaple1();
+    // example1();
     // example2();
     // example3();
-    // exmaple4();
-    // exmaple5();
-    // exmaple6();
+    // example4();
+    // example5();
+    // example6();
     example7();
 }
