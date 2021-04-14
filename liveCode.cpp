@@ -122,6 +122,40 @@ void example6() {
     cout << "a_glob_atomic: " << a_glob_atomic << endl;
 }
 
+void sumWithOutGlobVar(int& a, int& b, atomic_int& c, mutex& mtx) {
+    for (int i = 0; i < 100'000; i++) {
+        // Normal sum
+        a++;
+
+        // Sum with mutex
+        mtx.lock();
+        b++;
+        mtx.unlock();
+
+        // Sum with atomic
+        c++;
+    }
+}
+
+void example_4_5_6_extra() {
+    // Mye bedre å ikke bruke globalene variabler
+    // Da har man full kontroll over hva som har tilgang
+    int a = 0;
+    int b = 0;
+    atomic_int c = 0;
+    mutex mtx;
+
+    thread t1{sumWithOutGlobVar, ref(a), ref(b), ref(c), ref(mtx)};
+    thread t2{sumWithOutGlobVar, ref(a), ref(b), ref(c), ref(mtx)};
+
+    t1.join();
+    t2.join();
+
+    cout << "a: " << a << endl;
+    cout << "b: " << b << endl;
+    cout << "c: " << c << endl;
+}
+
 #include "Eigen/Dense"
 using namespace Eigen;
 
@@ -148,5 +182,6 @@ void runLiveCode() {
     // example4();
     // example5();
     // example6();
+    example_4_5_6_extra();
     example7();
 }
